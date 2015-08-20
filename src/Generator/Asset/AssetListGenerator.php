@@ -19,29 +19,17 @@ class AssetListGenerator extends AbstractGenerator
     {
         $file_loader = \Config::getLoader();
         $app_config = $file_loader->load('', 'app', 'core');
-        $assets = array_get($app_config, 'assets', array());
 
         /** @type CommentRepositoryFactory $comment_repository_factory */
         $comment_repository_factory = \Core::make('documentation_generator/comment_repository_factory');
         $comment_repository = $comment_repository_factory->makeCommentRepository(DIR_BASE_CORE . "/config/app.php");
 
-        $asset_handles = array();
-        foreach (array_keys($assets) as $handle) {
-            $block = $comment_repository->getDocblock("app.assets.{$handle}");
-            $asset_handles[] = array($handle, $block ? $block->getShortDescription() : '');
-        }
-
         $asset_groups = array_get($app_config, 'asset_groups', array());
-        $asset_group_handles = array();
-
-        foreach ($asset_groups as $handle => $asset_group) {
-            $block = $comment_repository->getDocblock("app.asset_groups.{$handle}");
-            $asset_group_handles[] = array($handle, $block ? $block->getShortDescription() : '');
-        }
 
         $markdown = array("# Asset Groups", "");
-        foreach ($asset_group_handles as $asset) {
-            list($handle, $description) = $asset;
+        foreach ($asset_groups as $handle => $asset_group) {
+            $block = $comment_repository->getDocblock("app.asset_groups.{$handle}");
+            $description = $block ? $block->getShortDescription() : '';
             $output->writeln("Generating {$handle}");
             $markdown[] = "* `{$handle}`" . ($description ? ": {$description}" : "");
         }
@@ -49,8 +37,11 @@ class AssetListGenerator extends AbstractGenerator
         $markdown[] = "";
         $markdown[] = "# Individual Assets";
         $markdown[] = "";
-        foreach ($asset_handles as $asset) {
-            list($handle, $description) = $asset;
+
+        $assets = array_get($app_config, 'assets', array());
+        foreach (array_keys($assets) as $handle) {
+            $block = $comment_repository->getDocblock("app.assets.{$handle}");
+            $description = $block ? $block->getShortDescription() : '';
             $output->writeln("Generating {$handle}");
             $markdown[] = "* `{$handle}`" . ($description ? ": {$description}" : "");
         }
