@@ -1,6 +1,7 @@
 <?php
 namespace Concrete\DocumentationGenerator\Generator\Asset;
 
+use Concrete\DocumentationGenerator\Config\CommentRepository;
 use Concrete\DocumentationGenerator\Config\CommentRepositoryFactory;
 use Concrete\DocumentationGenerator\Generator\AbstractGenerator;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -27,28 +28,32 @@ class AssetListGenerator extends AbstractGenerator
         $asset_groups = array_get($app_config, 'asset_groups', array());
 
         $markdown = array("# Asset Groups", "");
-        foreach ($asset_groups as $handle => $asset_group) {
-            $block = $comment_repository->getDocblock("app.asset_groups.{$handle}");
-            $description = $block ? $block->getShortDescription() : '';
-            $output->writeln("Generating {$handle}");
-            $markdown[] = "* `{$handle}`" . ($description ? ": {$description}" : "");
-        }
+        $markdown = array_merge($markdown, $this->getMarkdown(
+            array_keys($asset_groups),
+            'app.asset_groups',
+            $comment_repository));
 
         $markdown[] = "";
         $markdown[] = "# Individual Assets";
         $markdown[] = "";
 
         $assets = array_get($app_config, 'assets', array());
-        foreach (array_keys($assets) as $handle) {
-            $block = $comment_repository->getDocblock("app.assets.{$handle}");
-            $description = $block ? $block->getShortDescription() : '';
-            $output->writeln("Generating {$handle}");
-            $markdown[] = "* `{$handle}`" . ($description ? ": {$description}" : "");
-        }
+        $markdown = array_merge($markdown, $this->getMarkdown(array_keys($assets), 'app.assets', $comment_repository));
 
         $markdown_string = implode("\n", $markdown);
 
         $output->writeln($markdown_string);
     }
 
+    protected function getMarkdown($list, $item, CommentRepository $repository)
+    {
+        $markdown = array();
+        foreach ($list as $handle) {
+            $block = $repository->getDocblock("{$item}.{$handle}");
+            $description = $block ? $block->getShortDescription() : '';
+            $markdown[] = "* `{$handle}`" . ($description ? ": {$description}" : "");
+        }
+
+        return $markdown;
+    }
 }
