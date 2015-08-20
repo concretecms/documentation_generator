@@ -16,7 +16,7 @@ class CommentRepository
         }
 
         $docblocks = array_get($docblocks, 0, array());
-        foreach($docblocks as $raw_docblock) {
+        foreach ($docblocks as $raw_docblock) {
             $docblock = new DocBlock($raw_docblock);
             $tag = head($docblock->getTagsByName("var"));
             if ($tag && $description = $tag->getDescription()) {

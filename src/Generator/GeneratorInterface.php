@@ -11,7 +11,7 @@ interface GeneratorInterface
     public function getHandle();
 
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface   $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return null|int null or 0 if everything went fine, or an error code

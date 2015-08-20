@@ -18,7 +18,7 @@ class GenerateCommand extends Command
 
     protected $default_generator;
 
-    public function __construct($name = null, GeneratorList $generator_list, $default_generator=null)
+    public function __construct($name = null, GeneratorList $generator_list, $default_generator = null)
     {
         parent::__construct($name);
         $this->generator_list = $generator_list;
@@ -76,7 +76,7 @@ class GenerateCommand extends Command
      * execute() method, you set the code to execute by passing
      * a Closure to the setCode() method.
      *
-     * @param InputInterface  $input  An InputInterface instance
+     * @param InputInterface $input An InputInterface instance
      * @param OutputInterface $output An OutputInterface instance
      *
      * @return null|int null or 0 if everything went fine, or an error code

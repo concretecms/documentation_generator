@@ -9,7 +9,7 @@ class CommentRepositoryFactory
 
     protected $repositories;
 
-    /** @type \Illuminate\Filesystem\Filesystem  */
+    /** @type \Illuminate\Filesystem\Filesystem */
     protected $file;
 
     public function __construct(Filesystem $filesystem)
