@@ -1,9 +1,9 @@
 {
     "name": "concrete5/documentation_generator",
-    "description": "Concrete5 composer package for adding commands that generate documentation.",
+    "description": "concrete5 composer package for adding commands that generate documentation.",
     "version": "1.0-alpha2",
     "require": {
-        "phpdocumentor/phpdocumentor": "~2.8"
+        "phpdocumentor/reflection-docblock": "~2.0"
     },
     "license": "MIT",
     "authors": [
