@@ -9,7 +9,6 @@ class Controller extends \Package
 {
 
     protected $pkgHandle = 'documentation_generator';
-    protected $pkgDescription = "This is intended to be included as a composer package, but will work as a concrete5 package.";
 
     public function __construct()
     {
