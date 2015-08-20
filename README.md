@@ -6,7 +6,7 @@ generate documentation based on the core configuration values.
 
 ### Using composer
 1. Require this composer package `"concrete/documentation_generator"`
-2. Add the base service provider to your configuration
+2. Add the base service provider to your `application/config/app.php`
     ```php
     <?php
     // application/config/app.php
