@@ -1,3 +1,8 @@
+[![](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/concrete5/documentation_generator/blob/master/LICENSE.md)
+[![](http://img.shields.io/packagist/v/concrete5/documentation_generator.svg?style=flat)](https://packagist.org/packages/concrete5/documentation_generator)
+[![](http://img.shields.io/packagist/dt/concrete5/documentation_generator.svg?style=flat)](https://packagist.org/packages/concrete5/documentation_generator)
+[![](http://img.shields.io/scrutinizer/g/concrete5/documentation_generator.svg?style=flat)](http://scrutinizer-ci.com/g/concrete5/documentation_generator/)
+
 # concrete5 documentation generator
 This composer package adds commands to concrete5's command line utility that
 generate documentation based on the core configuration values.
