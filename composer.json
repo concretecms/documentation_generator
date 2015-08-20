@@ -1,20 +1,20 @@
 {
-    "name": "concrete5/documentation_generator",
-    "description": "concrete5 composer package for adding commands that generate documentation.",
-    "version": "1.0-alpha3",
-    "require": {
-        "phpdocumentor/reflection-docblock": "~2.0"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Korvin Szanto",
-            "email": "korvinszanto@gmail.com"
-        }
-    ],
-    "autoload": {
-      "psr-4": {
-        "Concrete\\DocumentationGenerator\\": "src/"
-      }
+  "name": "concrete5/documentation_generator",
+  "description": "concrete5 composer package for adding commands that generate documentation.",
+  "version": "1.0-alpha4",
+  "require": {
+    "phpdocumentor/reflection-docblock": "~2.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Korvin Szanto",
+      "email": "korvinszanto@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Concrete\\DocumentationGenerator\\": "src/"
+    }
+  }
 }
