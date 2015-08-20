@@ -1,0 +1,20 @@
+{
+    "name": "concrete5/documentation_generator",
+    "description": "Concrete5 composer package for adding commands that generate documentation.",
+    "version": "1.0-alpha",
+    "require": {
+        "phpdocumentor/phpdocumentor": "~2.8"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Korvin Szanto",
+            "email": "korvinszanto@gmail.com"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "Concrete\\DocumentationGenerator\\": "src/"
+      }
+    }
+}
