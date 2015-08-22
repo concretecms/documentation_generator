@@ -11,21 +11,27 @@ use Symfony\Component\Console\Output\OutputInterface;
 class AssetListGenerator extends AbstractGenerator
 {
 
+    protected $app_config;
+
     public function getHandle()
     {
         return "asset_list";
     }
 
+    protected function getAppConfig()
+    {
+        if (!$this->app_config) {
+            $file_loader = \Config::getLoader();
+            $this->app_config = $file_loader->load('', 'app', 'core');
+        }
+
+        return $this->app_config;
+    }
+
     public function generate(InputInterface $input, OutputInterface $output)
     {
-        $file_loader = \Config::getLoader();
-        $app_config = $file_loader->load('', 'app', 'core');
-
-        /** @type CommentRepositoryFactory $comment_repository_factory */
-        $comment_repository_factory = \Core::make('documentation_generator/comment_repository_factory');
-        $comment_repository = $comment_repository_factory->makeCommentRepository(DIR_BASE_CORE . "/config/app.php");
-
-        $asset_groups = array_get($app_config, 'asset_groups', array());
+        $comment_repository = $this->getCommentRepository();
+        $asset_groups = $this->getAssetGroups();
 
         $markdown = array("# Asset Groups", "");
         $markdown = array_merge($markdown, $this->getMarkdown(
@@ -37,12 +43,33 @@ class AssetListGenerator extends AbstractGenerator
         $markdown[] = "# Individual Assets";
         $markdown[] = "";
 
-        $assets = array_get($app_config, 'assets', array());
+        $assets = $this->getAssets();
         $markdown = array_merge($markdown, $this->getMarkdown(array_keys($assets), 'app.assets', $comment_repository));
 
         $markdown_string = implode("\n", $markdown);
 
         $output->writeln($markdown_string);
+    }
+
+    protected function getAssets()
+    {
+        $app_config = $this->getAppConfig();
+
+        return array_get($app_config, 'assets', array());
+    }
+
+    protected function getAssetGroups()
+    {
+        $app_config = $this->getAppConfig();
+
+        return array_get($app_config, 'asset_groups', array());
+    }
+
+    protected function getCommentRepository()
+    {
+        /** @type CommentRepositoryFactory $comment_repository_factory */
+        $comment_repository_factory = \Core::make('documentation_generator/comment_repository_factory');
+        return $comment_repository_factory->makeCommentRepository(DIR_BASE_CORE . "/config/app.php");
     }
 
     protected function getMarkdown($list, $item, CommentRepository $repository)
