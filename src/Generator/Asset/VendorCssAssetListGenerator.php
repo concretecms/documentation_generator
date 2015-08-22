@@ -36,8 +36,6 @@ class VendorCssAssetListGenerator extends AssetListGenerator
             foreach ((array)$asset as $file) {
                 list($type, $path,) = $file;
 
-                var_dump($path, strtolower(basename($path, '.css'));
-
                 if (isset($vendor_stylesheet_names[strtolower(basename($path, '.css'))])) {
                     $source = $vendor_stylesheet_names[strtolower(basename($path, '.css'))];
                     $output->writeln("`{$handle}` | `{$path}` | `/js/build/vendor/$source`");
