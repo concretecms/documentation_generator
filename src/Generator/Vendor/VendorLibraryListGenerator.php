@@ -23,10 +23,9 @@ class VendorLibraryListGenerator extends AbstractGenerator
     {
         $libraries = json_decode(file_get_contents(DIR_BASE_CORE . "/composer.lock"), true);
 
-        $output->writeln("# Composer Libraries", "");
-        $types = \BlockTypeList::getInstalledList();
-
         $output->writeln(array(
+            "# Composer Libraries",
+            "",
             " Handle | Version | Description ",
             " ------ | ------- | ----------- "));
 
