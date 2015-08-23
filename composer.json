@@ -1,7 +1,7 @@
 {
   "name": "concrete5/documentation_generator",
   "description": "concrete5 composer package for adding commands that generate documentation.",
-  "version": "1.0-beta1",
+  "version": "1.0-beta2",
   "require": {
     "phpdocumentor/reflection-docblock": "~2.0"
   },
