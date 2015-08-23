@@ -16,9 +16,21 @@ class CommentRepository
         }
 
         $docblocks = array_get($docblocks, 0, array());
+        $this->processDocBlocks($docblocks);
+    }
+
+    /**
+     * Process comments into docblock objects.
+     * @param array $docblocks
+     */
+    protected function processDocBlocks(array $docblocks)
+    {
+        $this->docblocks = array();
+
         foreach ($docblocks as $raw_docblock) {
             $docblock = new DocBlock($raw_docblock);
             $tag = head($docblock->getTagsByName("var"));
+
             if ($tag && $description = $tag->getDescription()) {
                 $this->docblocks[$description] = $docblock;
             }
