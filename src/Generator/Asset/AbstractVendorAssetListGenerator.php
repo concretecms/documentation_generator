@@ -104,7 +104,7 @@ abstract class AbstractVendorAssetListGenerator extends AssetListGenerator
 
         $assets = $this->getAssets();
         foreach ($assets as $handle => $asset) {
-            foreach ((array)$asset as $file) {
+            foreach ((array) $asset as $file) {
                 list(, $path,) = $file;
 
                 if (isset($vendor_names[strtolower(basename($path, $suffix))])) {
