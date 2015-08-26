@@ -29,10 +29,13 @@ class CommentRepository
 
         foreach ($docblocks as $raw_docblock) {
             $docblock = new DocBlock($raw_docblock);
-            $tag = head($docblock->getTagsByName("var"));
 
-            if ($tag && $description = $tag->getDescription()) {
-                $this->docblocks[$description] = $docblock;
+            $tags = $docblock->getTagsByName("var");
+            foreach ($tags as $tag) {
+                if ($tag && $description = $tag->getDescription()) {
+                    list($key,) = explode(' ', $description);
+                    $this->docblocks[$key] = $docblock;
+                }
             }
         }
     }

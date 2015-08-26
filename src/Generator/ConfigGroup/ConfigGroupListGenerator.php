@@ -49,7 +49,14 @@ class ConfigGroupListGenerator extends AbstractGenerator
                 list($type, $value) = $item;
                 $description = "No Description";
                 if ($docblock = $comments->getDocblock($key)) {
-                    $description = $docblock->getShortDescription();
+                    list($inline_type, $inline_description) = $this->getDocblockInfo($docblock);
+
+                    if ($inline_description) {
+                        $description = $inline_description;
+                    }
+                    if ($inline_type) {
+                        $type = $inline_type;
+                    }
                 }
 
                 $output->writeln(
@@ -59,6 +66,28 @@ class ConfigGroupListGenerator extends AbstractGenerator
 
             $output->writeln('');
         }
+    }
+
+    protected function getDocblockInfo($docblock)
+    {
+        $type = "";
+        $description = $docblock->getShortDescription();
+
+        /** @var \phpDocumentor\Reflection\DocBlock\Tag\VarTag[] $tags */
+        $tags = $docblock->getTagsByName('var');
+        foreach ($tags as $tag) {
+            list(, $inline_description) = array_pad(explode(' ', $tag->getDescription(), 2), 2, '');
+            $inline_type = $tag->getType();
+
+            if ($inline_type) {
+                $type = $inline_type;
+            }
+            if ($inline_description) {
+                $description = $inline_description;
+            }
+        }
+
+        return array($type, $description);
     }
 
     /**
