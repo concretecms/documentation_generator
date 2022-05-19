@@ -1,6 +1,6 @@
 {
-  "name": "concrete5/documentation_generator",
-  "description": "concrete5 composer package for adding commands that generate documentation.",
+  "name": "concretecms/documentation_generator",
+  "description": "Concrete composer package for adding commands that generate documentation.",
   "version": "1.0-beta3",
   "minimum-stability": "dev",
   "bin-dir": "/bin",
